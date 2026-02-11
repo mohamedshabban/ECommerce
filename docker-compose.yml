@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # SQL Server Database
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ecommerce-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - ecommerce-network
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "YourStrong@Passw0rd" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  # Elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: ecommerce-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - ecommerce-network
+    healthcheck:
+      test: curl -s http://localhost:9200/_cluster/health | grep -q '"status":"green"\|"status":"yellow"'
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # Backend API
+  api:
+    build:
+      context: ./src/backend
+      dockerfile: Dockerfile
+    container_name: ecommerce-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=ECommerceDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True
+      - Elasticsearch__Uri=http://elasticsearch:9200
+      - JwtSettings__Secret=YourSuperSecretKeyForJWTTokenGenerationMustBeAtLeast32Characters
+      - JwtSettings__Issuer=ECommerceAPI
+      - JwtSettings__Audience=ECommerceApp
+      - PayPal__ClientId=${PAYPAL_CLIENT_ID}
+      - PayPal__ClientSecret=${PAYPAL_CLIENT_SECRET}
+      - PayPal__Mode=sandbox
+      - OAuth__Google__ClientId=${GOOGLE_CLIENT_ID}
+      - OAuth__Google__ClientSecret=${GOOGLE_CLIENT_SECRET}
+      - OAuth__Facebook__AppId=${FACEBOOK_APP_ID}
+      - OAuth__Facebook__AppSecret=${FACEBOOK_APP_SECRET}
+    ports:
+      - "5000:8080"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - uploads-data:/app/uploads
+    networks:
+      - ecommerce-network
+
+  # Frontend (Angular)
+  frontend:
+    build:
+      context: ./src/frontend/ecommerce-web
+      dockerfile: Dockerfile
+    container_name: ecommerce-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    networks:
+      - ecommerce-network
+
+volumes:
+  sqlserver-data:
+  elasticsearch-data:
+  uploads-data:
+
+networks:
+  ecommerce-network:
+    driver: bridge

@@ -1,0 +1,408 @@
+{
+  "common": {
+    "home": "Home",
+    "viewAll": "View All",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "view": "View",
+    "close": "Close",
+    "select": "Select",
+    "actions": "Actions"
+  },
+  "nav": {
+    "products": "Products",
+    "search": "Search products...",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "orders": "Orders",
+    "adminDashboard": "Admin Dashboard",
+    "vendorDashboard": "Vendor Dashboard"
+  },
+  "home": {
+    "hero": {
+      "title": "Shop the Best Products",
+      "subtitle": "Discover amazing deals on thousands of products",
+      "shopNow": "Shop Now"
+    },
+    "categories": {
+      "title": "Browse Categories"
+    },
+    "featured": {
+      "title": "Featured Products"
+    },
+    "newArrivals": {
+      "title": "New Arrivals"
+    },
+    "features": {
+      "freeShipping": {
+        "title": "Free Shipping",
+        "desc": "On orders over $50"
+      },
+      "easyReturns": {
+        "title": "Easy Returns",
+        "desc": "30-day return policy"
+      },
+      "securePayment": {
+        "title": "Secure Payment",
+        "desc": "100% secure checkout"
+      },
+      "support": {
+        "title": "24/7 Support",
+        "desc": "Dedicated support"
+      }
+    }
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone Number",
+    "accountType": "Account Type",
+    "orContinueWith": "Or continue with",
+    "logout": "Logout",
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot Password?",
+      "submit": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign Up"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Join us today",
+      "agreeTerms": "I agree to the",
+      "termsLink": "Terms and Conditions",
+      "submit": "Create Account",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign In"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "subtitle": "Enter your email to reset your password",
+      "submit": "Send Reset Link",
+      "backToLogin": "Back to Login",
+      "checkEmail": "Check your email for reset instructions",
+      "tryAgain": "Try Again"
+    },
+    "roles": {
+      "customer": "Customer",
+      "vendor": "Vendor",
+      "admin": "Admin"
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 6 characters",
+      "passwordMismatch": "Passwords do not match",
+      "firstNameRequired": "First name is required",
+      "lastNameRequired": "Last name is required"
+    }
+  },
+  "product": {
+    "product": "Product",
+    "viewDetails": "View Details",
+    "addToCart": "Add to Cart",
+    "addToWishlist": "Add to Wishlist",
+    "new": "New",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "quantity": "Quantity",
+    "available": "available",
+    "save": "Save",
+    "sku": "SKU",
+    "vendor": "Vendor",
+    "share": "Share",
+    "description": "Description",
+    "reviews": "Reviews",
+    "writeReview": "Write a Review",
+    "yourRating": "Your Rating",
+    "yourReview": "Your Review",
+    "reviewPlaceholder": "Share your experience with this product...",
+    "submitReview": "Submit Review",
+    "noReviews": "No reviews yet. Be the first to review!",
+    "toWriteReview": "to write a review",
+    "relatedProducts": "Related Products",
+    "notFound": "Product not found",
+    "backToProducts": "Back to Products",
+    "category": "Category",
+    "price": "Price",
+    "originalPrice": "Original Price",
+    "stock": "Stock",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "featured": "Featured",
+    "nameEn": "Name (English)",
+    "nameAr": "Name (Arabic)",
+    "descriptionEn": "Description (English)",
+    "descriptionAr": "Description (Arabic)",
+    "shortDescription": "Short Description",
+    "images": "Images",
+    "imagesHelp": "You can upload multiple images"
+  },
+  "products": {
+    "allProducts": "All Products",
+    "searchResults": "Search Results",
+    "itemsFound": "items found",
+    "search": "Search...",
+    "noProducts": "No Products Found",
+    "noProductsDesc": "Try adjusting your filters or search query",
+    "filters": {
+      "title": "Filters",
+      "clear": "Clear All",
+      "categories": "Categories",
+      "priceRange": "Price Range",
+      "rating": "Rating"
+    },
+    "sort": {
+      "newest": "Newest",
+      "priceLow": "Price: Low to High",
+      "priceHigh": "Price: High to Low",
+      "rating": "Best Rating",
+      "popular": "Most Popular"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "emptyDesc": "Looks like you haven't added any items yet",
+    "continueShopping": "Continue Shopping",
+    "product": "Product",
+    "price": "Price",
+    "quantity": "Quantity",
+    "total": "Total",
+    "items": "items",
+    "clearCart": "Clear Cart",
+    "couponCode": "Coupon Code",
+    "enterCoupon": "Enter coupon code",
+    "apply": "Apply",
+    "couponApplied": "Coupon applied successfully!",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "shipping": "Shipping",
+    "checkout": "Proceed to Checkout",
+    "acceptedPayments": "We Accept",
+    "secureCheckout": "Secure SSL Encrypted Checkout"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "emptyCart": "Your cart is empty",
+    "steps": {
+      "shipping": "Shipping",
+      "payment": "Payment",
+      "review": "Review"
+    },
+    "shippingAddress": "Shipping Address",
+    "savedAddresses": "Saved Addresses",
+    "addNewAddress": "Add New Address",
+    "saveAddress": "Save this address for future orders",
+    "backToCart": "Back to Cart",
+    "continueToPayment": "Continue to Payment",
+    "paymentMethod": "Payment Method",
+    "paypalDesc": "Pay securely with PayPal",
+    "creditCard": "Credit/Debit Card",
+    "creditCardDesc": "Pay with Visa, Mastercard, or Amex",
+    "cashOnDelivery": "Cash on Delivery",
+    "codDesc": "Pay when you receive your order",
+    "back": "Back",
+    "reviewOrder": "Review Order",
+    "orderItems": "Order Items",
+    "placeOrder": "Place Order",
+    "success": {
+      "title": "Order Placed Successfully!",
+      "subtitle": "Thank you for your purchase",
+      "emailSent": "A confirmation email has been sent to your email address",
+      "viewOrders": "View My Orders"
+    }
+  },
+  "order": {
+    "orderNumber": "Order Number",
+    "total": "Total",
+    "status": "Status",
+    "paymentStatus": "Payment Status",
+    "payment": "Payment",
+    "date": "Date",
+    "customer": "Customer",
+    "items": "Items",
+    "noOrders": "No Orders Yet",
+    "noOrdersDesc": "You haven't placed any orders yet",
+    "startShopping": "Start Shopping",
+    "allOrders": "All Orders",
+    "viewDetails": "View Details",
+    "reorder": "Reorder",
+    "backToOrders": "Back to Orders",
+    "notFound": "Order not found",
+    "placedOn": "Placed on",
+    "shippingInfo": "Shipping Information",
+    "shippingAddress": "Shipping Address",
+    "paymentMethod": "Payment Method",
+    "trackingNumber": "Tracking Number",
+    "summary": "Order Summary",
+    "tax": "Tax",
+    "cancel": "Cancel Order",
+    "downloadInvoice": "Download Invoice",
+    "printInvoice": "Print Invoice",
+    "status": {
+      "Pending": "Pending",
+      "Confirmed": "Confirmed",
+      "Processing": "Processing",
+      "Shipped": "Shipped",
+      "Delivered": "Delivered",
+      "Cancelled": "Cancelled"
+    }
+  },
+  "address": {
+    "fullName": "Full Name",
+    "phone": "Phone",
+    "addressLine1": "Address Line 1",
+    "addressLine2": "Address Line 2 (Optional)",
+    "city": "City",
+    "state": "State/Province",
+    "postalCode": "Postal Code",
+    "country": "Country",
+    "default": "Default",
+    "setDefault": "Set as Default",
+    "addNew": "Add New Address",
+    "edit": "Edit Address",
+    "noAddresses": "No Addresses Saved",
+    "noAddressesDesc": "Add an address to make checkout faster"
+  },
+  "user": {
+    "profile": "Profile",
+    "orders": "Orders",
+    "addresses": "Addresses",
+    "myOrders": "My Orders",
+    "myAddresses": "My Addresses",
+    "profileSettings": "Profile Settings",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "updatePassword": "Update Password"
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "totalRevenue": "Total Revenue",
+      "totalOrders": "Total Orders",
+      "totalProducts": "Total Products",
+      "totalUsers": "Total Users",
+      "recentOrders": "Recent Orders",
+      "quickStats": "Quick Stats",
+      "pendingOrders": "Pending Orders",
+      "newUsers": "New Users (This Month)",
+      "topProducts": "Top Selling Products"
+    },
+    "users": {
+      "title": "Manage Users",
+      "searchPlaceholder": "Search users...",
+      "allRoles": "All Roles",
+      "allStatus": "All Status",
+      "user": "User",
+      "role": "Role",
+      "status": "Status",
+      "joinedDate": "Joined Date",
+      "active": "Active",
+      "inactive": "Inactive",
+      "activate": "Activate",
+      "deactivate": "Deactivate"
+    },
+    "products": {
+      "title": "Manage Products",
+      "searchPlaceholder": "Search products...",
+      "allCategories": "All Categories",
+      "allStock": "All Stock",
+      "lowStock": "Low Stock",
+      "addNew": "Add Product",
+      "edit": "Edit Product"
+    },
+    "categories": {
+      "title": "Manage Categories",
+      "category": "Category",
+      "slug": "Slug",
+      "products": "Products",
+      "status": "Status",
+      "addNew": "Add Category",
+      "edit": "Edit Category",
+      "noCategories": "No Categories",
+      "nameEn": "Name (English)",
+      "nameAr": "Name (Arabic)",
+      "description": "Description",
+      "icon": "Icon",
+      "image": "Image",
+      "parent": "Parent Category",
+      "noParent": "No Parent (Top Level)",
+      "active": "Active",
+      "slugHelp": "URL-friendly name (auto-generated)"
+    },
+    "orders": {
+      "title": "Manage Orders",
+      "searchPlaceholder": "Search orders...",
+      "allStatus": "All Status",
+      "allPayment": "All Payment"
+    }
+  },
+  "vendor": {
+    "dashboard": {
+      "title": "Vendor Dashboard",
+      "addProduct": "Add New Product",
+      "totalRevenue": "Total Revenue",
+      "totalOrders": "Total Orders",
+      "totalProducts": "Total Products",
+      "pendingOrders": "Pending Orders",
+      "recentOrders": "Recent Orders",
+      "topProducts": "Top Products",
+      "noOrders": "No orders yet",
+      "noProducts": "No products yet"
+    },
+    "products": {
+      "title": "My Products",
+      "searchPlaceholder": "Search products...",
+      "allCategories": "All Categories",
+      "allStatus": "All Status",
+      "noProducts": "No Products Yet",
+      "noProductsDesc": "Start selling by adding your first product",
+      "addFirst": "Add Your First Product",
+      "addNew": "Add Product",
+      "edit": "Edit Product"
+    },
+    "orders": {
+      "title": "My Orders",
+      "searchPlaceholder": "Search orders...",
+      "allStatus": "All Status",
+      "noOrders": "No Orders Yet",
+      "noOrdersDesc": "Orders for your products will appear here",
+      "yourEarnings": "Your Earnings"
+    }
+  },
+  "footer": {
+    "about": "Your one-stop shop for all your needs. Quality products, great prices, and excellent customer service.",
+    "shop": "Shop",
+    "allProducts": "All Products",
+    "featured": "Featured",
+    "newArrivals": "New Arrivals",
+    "sale": "Sale",
+    "account": "Account",
+    "myAccount": "My Account",
+    "orders": "Orders",
+    "cart": "Cart",
+    "addresses": "Addresses",
+    "support": "Support",
+    "contact": "Contact Us",
+    "faq": "FAQ",
+    "shipping": "Shipping Info",
+    "returns": "Returns",
+    "rights": "All rights reserved."
+  }
+}

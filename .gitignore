@@ -1,0 +1,90 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# Angular
+dist/
+tmp/
+out-tsc/
+.angular/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env
+
+# Keep example env
+!.env.example
+
+# Secrets
+*.key
+*.pem
+*.pfx
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
+
+# Test results
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# NuGet
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# Misc
+*.log
+*.tmp
+*.temp
+nul

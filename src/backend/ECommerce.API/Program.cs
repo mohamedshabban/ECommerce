@@ -6,6 +6,7 @@ using ECommerce.Application.Mappings;
 using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -147,7 +148,7 @@ if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await context.Database.EnsureCreatedAsync();
+    await context.Database.MigrateAsync();
 }
 
 app.Run();
