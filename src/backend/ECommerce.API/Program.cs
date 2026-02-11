@@ -1,4 +1,3 @@
-using System.Text;
 using ECommerce.API.Middleware;
 using ECommerce.API.Services;
 using ECommerce.Application.Interfaces;
@@ -10,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Serilog.Core;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -148,7 +149,14 @@ if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await context.Database.MigrateAsync();
+    try
+    {
+        // Apply pending migrations
+        await context.Database.EnsureCreatedAsync();
+    }
+    catch (Exception ex)
+    {
+        throw;
+    }
 }
-
 app.Run();
