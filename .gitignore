@@ -49,7 +49,8 @@ out-tsc/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.claude/
+
+
 
 # OS
 .DS_Store
