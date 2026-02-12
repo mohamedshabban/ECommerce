@@ -166,7 +166,7 @@ interface DashboardStats {
                   <div class="d-flex align-items-center py-2" [class.border-bottom]="i < stats.topProducts.length - 1">
                     <span class="rank me-3 fw-bold text-muted">{{ i + 1 }}</span>
                     <img
-                      [src]="product.imageUrl || 'assets/images/placeholder.png'"
+                      [src]="product.imageUrl || 'assets/images/placeholder.svg'"
                       [alt]="product.name"
                       class="rounded me-3"
                       style="width: 40px; height: 40px; object-fit: cover;">

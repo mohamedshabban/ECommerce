@@ -79,7 +79,7 @@ import { Product, Category, PaginatedResponse } from '../../../core/models';
                       <td>
                         <div class="d-flex align-items-center">
                           <img
-                            [src]="product.imageUrl || 'assets/images/placeholder.png'"
+                            [src]="product.imageUrl || 'assets/images/placeholder.svg'"
                             [alt]="product.nameEn"
                             class="rounded me-2"
                             style="width: 50px; height: 50px; object-fit: cover;">

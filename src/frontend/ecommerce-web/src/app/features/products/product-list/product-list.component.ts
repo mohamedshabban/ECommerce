@@ -177,7 +177,7 @@ import { Product, Category, PaginatedResponse } from '../../../core/models';
                           <span class="discount-badge">-{{ product.discountPercentage }}%</span>
                         }
                         <img
-                          [src]="product.imageUrl || 'assets/images/placeholder.png'"
+                          [src]="product.imageUrl || 'assets/images/placeholder.svg'"
                           [alt]="product.nameEn"
                           class="card-img-top product-image"
                           [routerLink]="['/products', product.id]"
@@ -227,7 +227,7 @@ import { Product, Category, PaginatedResponse } from '../../../core/models';
                     <div class="row g-0">
                       <div class="col-md-3">
                         <img
-                          [src]="product.imageUrl || 'assets/images/placeholder.png'"
+                          [src]="product.imageUrl || 'assets/images/placeholder.svg'"
                           [alt]="product.nameEn"
                           class="img-fluid rounded-start h-100"
                           style="object-fit: cover;">

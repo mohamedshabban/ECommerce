@@ -274,7 +274,7 @@ import { Cart, Address, PaymentMethod } from '../../core/models';
                     @for (item of cart.items; track item.id) {
                       <div class="d-flex align-items-center py-2 border-bottom">
                         <img
-                          [src]="item.productImageUrl || 'assets/images/placeholder.png'"
+                          [src]="item.productImageUrl || 'assets/images/placeholder.svg'"
                           [alt]="item.productName"
                           class="rounded me-3"
                           style="width: 60px; height: 60px; object-fit: cover;">

@@ -19,7 +19,7 @@ import { User } from '../../../core/models';
             <div class="card-body text-center">
               <div class="avatar mb-3">
                 <img
-                  [src]="user?.avatarUrl || 'assets/images/avatar-placeholder.png'"
+                  [src]="user?.avatarUrl || 'assets/images/avatar-placeholder.svg'"
                   alt="Avatar"
                   class="rounded-circle">
               </div>

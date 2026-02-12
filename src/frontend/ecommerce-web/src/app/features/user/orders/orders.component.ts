@@ -72,7 +72,7 @@ import { Order, OrderStatus } from '../../../core/models';
                     <div class="d-flex">
                       @for (item of order.items?.slice(0, 3); track item.id) {
                         <img
-                          [src]="item.productImageUrl || 'assets/images/placeholder.png'"
+                          [src]="item.productImageUrl || 'assets/images/placeholder.svg'"
                           [alt]="item.productName"
                           class="order-item-image rounded me-2">
                       }

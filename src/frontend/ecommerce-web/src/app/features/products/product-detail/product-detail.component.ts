@@ -47,7 +47,7 @@ import { Product, ProductReview } from '../../../core/models';
             <div class="product-gallery">
               <div class="main-image mb-3">
                 <img
-                  [src]="selectedImage || product.imageUrl || 'assets/images/placeholder.png'"
+                  [src]="selectedImage || product.imageUrl || 'assets/images/placeholder.svg'"
                   [alt]="product.nameEn"
                   class="img-fluid rounded">
                 @if (product.discountPercentage && product.discountPercentage > 0) {
@@ -304,7 +304,7 @@ import { Product, ProductReview } from '../../../core/models';
                 <div class="col-6 col-md-3">
                   <div class="card product-card h-100">
                     <img
-                      [src]="relatedProduct.imageUrl || 'assets/images/placeholder.png'"
+                      [src]="relatedProduct.imageUrl || 'assets/images/placeholder.svg'"
                       [alt]="relatedProduct.nameEn"
                       class="card-img-top product-image">
                     <div class="card-body">

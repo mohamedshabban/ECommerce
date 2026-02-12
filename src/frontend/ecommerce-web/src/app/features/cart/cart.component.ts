@@ -52,7 +52,7 @@ import { Cart, CartItem } from '../../core/models';
                           <td>
                             <div class="d-flex align-items-center">
                               <img
-                                [src]="item.productImageUrl || 'assets/images/placeholder.png'"
+                                [src]="item.productImageUrl || 'assets/images/placeholder.svg'"
                                 [alt]="item.productName"
                                 class="cart-item-image rounded me-3">
                               <div>

@@ -75,7 +75,7 @@ import { Product, Category, PaginatedResponse } from '../../../core/models';
                   <div class="card product-card h-100">
                     <div class="position-relative">
                       <img
-                        [src]="product.imageUrl || 'assets/images/placeholder.png'"
+                        [src]="product.imageUrl || 'assets/images/placeholder.svg'"
                         [alt]="product.nameEn"
                         class="card-img-top"
                         style="height: 180px; object-fit: cover;">

@@ -70,7 +70,7 @@ import { Product, Category } from '../../../core/models';
                       <span class="discount-badge">-{{ product.discountPercentage }}%</span>
                     }
                     <img
-                      [src]="product.imageUrl || 'assets/images/placeholder.png'"
+                      [src]="product.imageUrl || 'assets/images/placeholder.svg'"
                       [alt]="product.nameEn"
                       class="card-img-top product-image">
                   </div>
@@ -123,7 +123,7 @@ import { Product, Category } from '../../../core/models';
                     {{ 'product.new' | translate }}
                   </span>
                   <img
-                    [src]="product.imageUrl || 'assets/images/placeholder.png'"
+                    [src]="product.imageUrl || 'assets/images/placeholder.svg'"
                     [alt]="product.nameEn"
                     class="card-img-top product-image">
                 </div>

@@ -82,7 +82,7 @@ import { Order, OrderStatus, PaginatedResponse } from '../../../core/models';
                       <td>
                         <div class="d-flex align-items-center">
                           <img
-                            [src]="order.items?.[0]?.productImageUrl || 'assets/images/placeholder.png'"
+                            [src]="order.items?.[0]?.productImageUrl || 'assets/images/placeholder.svg'"
                             class="rounded me-2"
                             style="width: 40px; height: 40px; object-fit: cover;">
                           <div>

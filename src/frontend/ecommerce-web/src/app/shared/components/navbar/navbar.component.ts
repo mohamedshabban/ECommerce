@@ -87,7 +87,7 @@ import { Language } from '../../../core/services/language.service';
               <li class="nav-item" ngbDropdown>
                 <button class="nav-link dropdown-toggle btn btn-link d-flex align-items-center" ngbDropdownToggle>
                   <img
-                    [src]="authService.currentUser()?.avatarUrl || 'assets/images/avatar-placeholder.png'"
+                    [src]="authService.currentUser()?.avatarUrl || 'assets/images/avatar-placeholder.svg'"
                     alt="Avatar"
                     class="rounded-circle me-2"
                     style="width: 32px; height: 32px; object-fit: cover;">

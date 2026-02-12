@@ -63,7 +63,7 @@ import { Order } from '../../../core/models';
                 @for (item of order.items; track item.id) {
                   <div class="d-flex py-3 border-bottom">
                     <img
-                      [src]="item.productImageUrl || 'assets/images/placeholder.png'"
+                      [src]="item.productImageUrl || 'assets/images/placeholder.svg'"
                       [alt]="item.productName"
                       class="rounded me-3"
                       style="width: 80px; height: 80px; object-fit: cover;">

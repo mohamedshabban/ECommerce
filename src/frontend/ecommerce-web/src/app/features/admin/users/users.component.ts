@@ -74,7 +74,7 @@ import { User, UserRole, PaginatedResponse } from '../../../core/models';
                       <td>
                         <div class="d-flex align-items-center">
                           <img
-                            [src]="user.avatarUrl || 'assets/images/avatar-placeholder.png'"
+                            [src]="user.avatarUrl || 'assets/images/avatar-placeholder.svg'"
                             [alt]="user.firstName"
                             class="rounded-circle me-2"
                             style="width: 40px; height: 40px; object-fit: cover;">
