@@ -2,27 +2,29 @@ using ECommerce.Domain.Enums;
 
 namespace ECommerce.Application.DTOs.Users;
 
-public record UserDto(
-    Guid Id,
-    string Email,
-    string FirstName,
-    string LastName,
-    string? PhoneNumber,
-    UserRole Role,
-    string? AvatarUrl,
-    bool IsActive,
-    bool EmailConfirmed,
-    DateTime CreatedAt
-);
+public record UserDto
+{
+    public Guid Id { get; init; }
+    public string Email { get; init; } = string.Empty;
+    public string FirstName { get; init; } = string.Empty;
+    public string LastName { get; init; } = string.Empty;
+    public string? PhoneNumber { get; init; }
+    public UserRole Role { get; init; }
+    public string? AvatarUrl { get; init; }
+    public bool IsActive { get; init; }
+    public bool EmailConfirmed { get; init; }
+    public DateTime CreatedAt { get; init; }
+}
 
-public record UserListDto(
-    Guid Id,
-    string Email,
-    string FullName,
-    UserRole Role,
-    bool IsActive,
-    DateTime CreatedAt
-);
+public record UserListDto
+{
+    public Guid Id { get; init; }
+    public string Email { get; init; } = string.Empty;
+    public string FullName { get; init; } = string.Empty;
+    public UserRole Role { get; init; }
+    public bool IsActive { get; init; }
+    public DateTime CreatedAt { get; init; }
+}
 
 public record UpdateProfileRequest(
     string FirstName,
@@ -38,18 +40,19 @@ public record UpdateUserRequest(
     bool IsActive
 );
 
-public record AddressDto(
-    Guid Id,
-    string Label,
-    string FullName,
-    string Phone,
-    string Street,
-    string City,
-    string State,
-    string Country,
-    string PostalCode,
-    bool IsDefault
-);
+public record AddressDto
+{
+    public Guid Id { get; init; }
+    public string Label { get; init; } = string.Empty;
+    public string FullName { get; init; } = string.Empty;
+    public string Phone { get; init; } = string.Empty;
+    public string Street { get; init; } = string.Empty;
+    public string City { get; init; } = string.Empty;
+    public string State { get; init; } = string.Empty;
+    public string Country { get; init; } = string.Empty;
+    public string PostalCode { get; init; } = string.Empty;
+    public bool IsDefault { get; init; }
+}
 
 public record CreateAddressRequest(
     string Label,

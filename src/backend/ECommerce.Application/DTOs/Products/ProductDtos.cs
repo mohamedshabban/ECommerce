@@ -1,32 +1,33 @@
 namespace ECommerce.Application.DTOs.Products;
 
-public record ProductDto(
-    Guid Id,
-    Guid VendorId,
-    string VendorName,
-    int CategoryId,
-    string CategoryNameEn,
-    string CategoryNameAr,
-    string NameEn,
-    string NameAr,
-    string? DescriptionEn,
-    string? DescriptionAr,
-    string SKU,
-    decimal Price,
-    decimal? DiscountPrice,
-    decimal CurrentPrice,
-    decimal DiscountPercentage,
-    int StockQuantity,
-    bool InStock,
-    bool IsActive,
-    bool IsFeatured,
-    string? Brand,
-    string? Tags,
-    double AverageRating,
-    int ReviewCount,
-    IEnumerable<ProductImageDto> Images,
-    DateTime CreatedAt
-);
+public record ProductDto
+{
+    public Guid Id { get; init; }
+    public Guid VendorId { get; init; }
+    public string VendorName { get; init; } = string.Empty;
+    public int CategoryId { get; init; }
+    public string CategoryNameEn { get; init; } = string.Empty;
+    public string CategoryNameAr { get; init; } = string.Empty;
+    public string NameEn { get; init; } = string.Empty;
+    public string NameAr { get; init; } = string.Empty;
+    public string? DescriptionEn { get; init; }
+    public string? DescriptionAr { get; init; }
+    public string SKU { get; init; } = string.Empty;
+    public decimal Price { get; init; }
+    public decimal? DiscountPrice { get; init; }
+    public decimal CurrentPrice { get; init; }
+    public decimal DiscountPercentage { get; init; }
+    public int StockQuantity { get; init; }
+    public bool InStock { get; init; }
+    public bool IsActive { get; init; }
+    public bool IsFeatured { get; init; }
+    public string? Brand { get; init; }
+    public string? Tags { get; init; }
+    public double AverageRating { get; init; }
+    public int ReviewCount { get; init; }
+    public IEnumerable<ProductImageDto> Images { get; init; } = Enumerable.Empty<ProductImageDto>();
+    public DateTime CreatedAt { get; init; }
+}
 
 public record ProductListDto
 {
@@ -46,13 +47,14 @@ public record ProductListDto
     public int ReviewCount { get; init; }
 }
 
-public record ProductImageDto(
-    int Id,
-    string ImageUrl,
-    string? AltText,
-    bool IsPrimary,
-    int SortOrder
-);
+public record ProductImageDto
+{
+    public int Id { get; init; }
+    public string ImageUrl { get; init; } = string.Empty;
+    public string? AltText { get; init; }
+    public bool IsPrimary { get; init; }
+    public int SortOrder { get; init; }
+}
 
 public record CreateProductRequest(
     int CategoryId,
@@ -125,16 +127,17 @@ public record ProductSearchResultDto(
 
 public record FacetDto(string Key, long Count);
 
-public record ProductReviewDto(
-    Guid Id,
-    Guid UserId,
-    string UserName,
-    int Rating,
-    string? Title,
-    string? Comment,
-    bool IsVerifiedPurchase,
-    DateTime CreatedAt
-);
+public record ProductReviewDto
+{
+    public Guid Id { get; init; }
+    public Guid UserId { get; init; }
+    public string UserName { get; init; } = string.Empty;
+    public int Rating { get; init; }
+    public string? Title { get; init; }
+    public string? Comment { get; init; }
+    public bool IsVerifiedPurchase { get; init; }
+    public DateTime CreatedAt { get; init; }
+}
 
 public record CreateReviewRequest(
     int Rating,

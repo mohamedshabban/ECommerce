@@ -3,50 +3,53 @@ using ECommerce.Domain.Enums;
 
 namespace ECommerce.Application.DTOs.Orders;
 
-public record OrderDto(
-    Guid Id,
-    string OrderNumber,
-    Guid UserId,
-    string CustomerName,
-    string CustomerEmail,
-    OrderStatus Status,
-    AddressDto ShippingAddress,
-    decimal SubTotal,
-    decimal ShippingCost,
-    decimal Tax,
-    decimal Discount,
-    decimal Total,
-    PaymentMethod PaymentMethod,
-    PaymentStatus PaymentStatus,
-    string? PayPalTransactionId,
-    string? Notes,
-    IEnumerable<OrderItemDto> Items,
-    DateTime CreatedAt,
-    DateTime? ShippedAt,
-    DateTime? DeliveredAt
-);
+public record OrderDto
+{
+    public Guid Id { get; init; }
+    public string OrderNumber { get; init; } = string.Empty;
+    public Guid UserId { get; init; }
+    public string CustomerName { get; init; } = string.Empty;
+    public string CustomerEmail { get; init; } = string.Empty;
+    public OrderStatus Status { get; init; }
+    public AddressDto? ShippingAddress { get; init; }
+    public decimal SubTotal { get; init; }
+    public decimal ShippingCost { get; init; }
+    public decimal Tax { get; init; }
+    public decimal Discount { get; init; }
+    public decimal Total { get; init; }
+    public PaymentMethod PaymentMethod { get; init; }
+    public PaymentStatus PaymentStatus { get; init; }
+    public string? PayPalTransactionId { get; init; }
+    public string? Notes { get; init; }
+    public IEnumerable<OrderItemDto> Items { get; init; } = Enumerable.Empty<OrderItemDto>();
+    public DateTime CreatedAt { get; init; }
+    public DateTime? ShippedAt { get; init; }
+    public DateTime? DeliveredAt { get; init; }
+}
 
-public record OrderListDto(
-    Guid Id,
-    string OrderNumber,
-    string CustomerName,
-    OrderStatus Status,
-    decimal Total,
-    PaymentStatus PaymentStatus,
-    int ItemCount,
-    DateTime CreatedAt
-);
+public record OrderListDto
+{
+    public Guid Id { get; init; }
+    public string OrderNumber { get; init; } = string.Empty;
+    public string CustomerName { get; init; } = string.Empty;
+    public OrderStatus Status { get; init; }
+    public decimal Total { get; init; }
+    public PaymentStatus PaymentStatus { get; init; }
+    public int ItemCount { get; init; }
+    public DateTime CreatedAt { get; init; }
+}
 
-public record OrderItemDto(
-    Guid Id,
-    Guid ProductId,
-    string ProductName,
-    string? ProductImageUrl,
-    int Quantity,
-    decimal UnitPrice,
-    decimal Total,
-    string VendorName
-);
+public record OrderItemDto
+{
+    public Guid Id { get; init; }
+    public Guid ProductId { get; init; }
+    public string ProductName { get; init; } = string.Empty;
+    public string? ProductImageUrl { get; init; }
+    public int Quantity { get; init; }
+    public decimal UnitPrice { get; init; }
+    public decimal Total { get; init; }
+    public string VendorName { get; init; } = string.Empty;
+}
 
 public record CreateOrderRequest(
     Guid ShippingAddressId,
