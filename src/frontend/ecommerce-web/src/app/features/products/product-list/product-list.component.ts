@@ -391,8 +391,11 @@ export class ProductListComponent implements OnInit {
 
   private loadCategories(): void {
     this.categoryService.getCategories().subscribe({
-      next: (categories) => this.categories = categories,
-      error: (err) => console.error('Error loading categories:', err)
+      next: (categories) => this.categories = categories || [],
+      error: (err) => {
+        console.error('Error loading categories:', err);
+        this.categories = [];
+      }
     });
   }
 
@@ -431,9 +434,9 @@ export class ProductListComponent implements OnInit {
 
     this.productService.getProducts(params).subscribe({
       next: (response: PaginatedResponse<Product>) => {
-        this.products = response.items;
-        this.totalItems = response.totalCount;
-        this.totalPages = response.totalPages;
+        this.products = response?.items || [];
+        this.totalItems = response?.totalCount || 0;
+        this.totalPages = response?.totalPages || 0;
         this.loading = false;
 
         if (this.categorySlug) {
@@ -443,6 +446,7 @@ export class ProductListComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading products:', err);
+        this.products = [];
         this.loading = false;
       }
     });
