@@ -151,12 +151,17 @@ if (app.Environment.IsDevelopment())
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     try
     {
-        // Apply pending migrations
+        // Ensure database is created
         await context.Database.EnsureCreatedAsync();
+
+        // Seed the database with dummy data
+        await DatabaseSeeder.SeedAsync(context);
     }
     catch (Exception ex)
     {
+        Log.Error(ex, "An error occurred while seeding the database");
         throw;
     }
 }
+
 app.Run();
