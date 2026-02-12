@@ -359,7 +359,7 @@ export class ProductListComponent implements OnInit {
 
   // Pagination
   currentPage = 1;
-  pageSize = 12;
+  pageSize = 6;
   totalItems = 0;
   totalPages = 0;
 

@@ -149,24 +149,22 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Apply migrations and seed data in development
 if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
     try
     {
-        // Ensure database is created
-        await context.Database.EnsureCreatedAsync();
-
-        // Seed the database with dummy data
+        await context.Database.MigrateAsync();
         await DatabaseSeeder.SeedAsync(context);
     }
     catch (Exception ex)
     {
-        Log.Error(ex, "An error occurred while seeding the database");
+        Log.Error(ex, "An error occurred while migrating or seeding the database");
         throw;
     }
 }
+
 
 app.Run();
