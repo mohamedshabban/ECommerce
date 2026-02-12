@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService, ThemeService, LanguageService, CartService } from '../../../core/services';
 import { Language } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, TranslateModule],
+  imports: [CommonModule, RouterModule, FormsModule, TranslateModule, NgbDropdownModule],
   template: `
     <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container">
@@ -54,23 +55,19 @@ import { Language } from '../../../core/services/language.service';
             </li>
 
             <!-- Language Toggle -->
-            <li class="nav-item dropdown">
-              <button class="nav-link dropdown-toggle btn btn-link" data-bs-toggle="dropdown">
+            <li class="nav-item" ngbDropdown>
+              <button class="nav-link dropdown-toggle btn btn-link" ngbDropdownToggle>
                 <i class="fas fa-globe me-1"></i>
                 {{ languageService.currentLang() === 'ar' ? 'عربي' : 'EN' }}
               </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <button class="dropdown-item" (click)="setLanguage('en')">
-                    English
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item" (click)="setLanguage('ar')">
-                    العربية
-                  </button>
-                </li>
-              </ul>
+              <div ngbDropdownMenu class="dropdown-menu-end">
+                <button ngbDropdownItem (click)="setLanguage('en')">
+                  English
+                </button>
+                <button ngbDropdownItem (click)="setLanguage('ar')">
+                  العربية
+                </button>
+              </div>
             </li>
 
             <!-- Cart -->
@@ -87,8 +84,8 @@ import { Language } from '../../../core/services/language.service';
 
             <!-- User Menu -->
             @if (authService.isAuthenticated()) {
-              <li class="nav-item dropdown">
-                <button class="nav-link dropdown-toggle btn btn-link d-flex align-items-center" data-bs-toggle="dropdown">
+              <li class="nav-item" ngbDropdown>
+                <button class="nav-link dropdown-toggle btn btn-link d-flex align-items-center" ngbDropdownToggle>
                   <img
                     [src]="authService.currentUser()?.avatarUrl || 'assets/images/avatar-placeholder.png'"
                     alt="Avatar"
@@ -96,40 +93,30 @@ import { Language } from '../../../core/services/language.service';
                     style="width: 32px; height: 32px; object-fit: cover;">
                   {{ authService.currentUser()?.firstName }}
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a class="dropdown-item" routerLink="/user/profile">
-                      <i class="fas fa-user me-2"></i> {{ 'nav.profile' | translate }}
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" routerLink="/user/orders">
-                      <i class="fas fa-shopping-bag me-2"></i> {{ 'nav.orders' | translate }}
-                    </a>
-                  </li>
+                <div ngbDropdownMenu class="dropdown-menu-end">
+                  <a ngbDropdownItem routerLink="/user/profile">
+                    <i class="fas fa-user me-2"></i> {{ 'nav.profile' | translate }}
+                  </a>
+                  <a ngbDropdownItem routerLink="/user/orders">
+                    <i class="fas fa-shopping-bag me-2"></i> {{ 'nav.orders' | translate }}
+                  </a>
                   @if (authService.isAdmin()) {
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                      <a class="dropdown-item" routerLink="/admin">
-                        <i class="fas fa-tachometer-alt me-2"></i> {{ 'nav.adminDashboard' | translate }}
-                      </a>
-                    </li>
+                    <div class="dropdown-divider"></div>
+                    <a ngbDropdownItem routerLink="/admin">
+                      <i class="fas fa-tachometer-alt me-2"></i> {{ 'nav.adminDashboard' | translate }}
+                    </a>
                   }
                   @if (authService.isVendor()) {
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                      <a class="dropdown-item" routerLink="/vendor">
-                        <i class="fas fa-store me-2"></i> {{ 'nav.vendorDashboard' | translate }}
-                      </a>
-                    </li>
+                    <div class="dropdown-divider"></div>
+                    <a ngbDropdownItem routerLink="/vendor">
+                      <i class="fas fa-store me-2"></i> {{ 'nav.vendorDashboard' | translate }}
+                    </a>
                   }
-                  <li><hr class="dropdown-divider"></li>
-                  <li>
-                    <button class="dropdown-item text-danger" (click)="logout()">
-                      <i class="fas fa-sign-out-alt me-2"></i> {{ 'nav.logout' | translate }}
-                    </button>
-                  </li>
-                </ul>
+                  <div class="dropdown-divider"></div>
+                  <button ngbDropdownItem class="text-danger" (click)="logout()">
+                    <i class="fas fa-sign-out-alt me-2"></i> {{ 'nav.logout' | translate }}
+                  </button>
+                </div>
               </li>
             } @else {
               <li class="nav-item">
