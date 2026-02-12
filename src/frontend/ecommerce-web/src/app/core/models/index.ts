@@ -74,6 +74,7 @@ export interface Product {
   averageRating?: number;
   reviewCount?: number;
   imageUrl?: string;
+  primaryImageUrl?: string;
   images?: ProductImage[];
   createdAt?: Date;
 }
