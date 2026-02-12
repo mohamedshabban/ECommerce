@@ -102,6 +102,40 @@ public class ProductsController : ControllerBase
         return Ok(ApiResponse<ProductDto>.SuccessResponse(productDto));
     }
 
+    [HttpGet("featured")]
+    public async Task<ActionResult<ApiResponse<IEnumerable<ProductListDto>>>> GetFeaturedProducts(
+        [FromQuery] int count = 8)
+    {
+        var products = await _unitOfWork.Repository<Product>().Query()
+            .Include(p => p.Category)
+            .Include(p => p.Images)
+            .Include(p => p.Reviews)
+            .Where(p => p.IsActive && p.IsFeatured)
+            .OrderByDescending(p => p.CreatedAt)
+            .Take(count)
+            .ToListAsync();
+
+        var productDtos = _mapper.Map<List<ProductListDto>>(products);
+        return Ok(ApiResponse<IEnumerable<ProductListDto>>.SuccessResponse(productDtos));
+    }
+
+    [HttpGet("new-arrivals")]
+    public async Task<ActionResult<ApiResponse<IEnumerable<ProductListDto>>>> GetNewArrivals(
+        [FromQuery] int count = 4)
+    {
+        var products = await _unitOfWork.Repository<Product>().Query()
+            .Include(p => p.Category)
+            .Include(p => p.Images)
+            .Include(p => p.Reviews)
+            .Where(p => p.IsActive)
+            .OrderByDescending(p => p.CreatedAt)
+            .Take(count)
+            .ToListAsync();
+
+        var productDtos = _mapper.Map<List<ProductListDto>>(products);
+        return Ok(ApiResponse<IEnumerable<ProductListDto>>.SuccessResponse(productDtos));
+    }
+
     [HttpGet("search")]
     public async Task<ActionResult<ApiResponse<ProductSearchResultDto>>> SearchProducts(
         [FromQuery] ProductSearchRequestDto request)
