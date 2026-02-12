@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:5171/api',
+  apiUrl: 'http://localhost:5171/api',
   paypal: {
     clientId: 'your-paypal-sandbox-client-id'
   },
