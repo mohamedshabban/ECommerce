@@ -28,22 +28,23 @@ public record ProductDto(
     DateTime CreatedAt
 );
 
-public record ProductListDto(
-    Guid Id,
-    string NameEn,
-    string NameAr,
-    string CategoryNameEn,
-    string CategoryNameAr,
-    decimal Price,
-    decimal? DiscountPrice,
-    decimal CurrentPrice,
-    int StockQuantity,
-    bool InStock,
-    bool IsFeatured,
-    string? PrimaryImageUrl,
-    double AverageRating,
-    int ReviewCount
-);
+public record ProductListDto
+{
+    public Guid Id { get; init; }
+    public string NameEn { get; init; } = string.Empty;
+    public string NameAr { get; init; } = string.Empty;
+    public string CategoryNameEn { get; init; } = string.Empty;
+    public string CategoryNameAr { get; init; } = string.Empty;
+    public decimal Price { get; init; }
+    public decimal? DiscountPrice { get; init; }
+    public decimal CurrentPrice { get; init; }
+    public int StockQuantity { get; init; }
+    public bool InStock { get; init; }
+    public bool IsFeatured { get; init; }
+    public string? PrimaryImageUrl { get; init; }
+    public double AverageRating { get; init; }
+    public int ReviewCount { get; init; }
+}
 
 public record ProductImageDto(
     int Id,

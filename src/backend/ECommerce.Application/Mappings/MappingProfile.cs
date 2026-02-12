@@ -28,9 +28,9 @@ public class MappingProfile : Profile
         // Category mappings
         CreateMap<Category, CategoryDto>()
             .ForMember(d => d.ParentCategoryName, opt => opt.MapFrom(s => s.ParentCategory != null ? s.ParentCategory.NameEn : null))
-            .ForMember(d => d.ProductCount, opt => opt.MapFrom(s => s.Products.Count));
+            .ForMember(d => d.ProductCount, opt => opt.MapFrom(s => s.Products != null ? s.Products.Count : 0));
         CreateMap<Category, CategoryListDto>()
-            .ForMember(d => d.ProductCount, opt => opt.MapFrom(s => s.Products.Count));
+            .ForMember(d => d.ProductCount, opt => opt.MapFrom(s => s.Products != null ? s.Products.Count : 0));
         CreateMap<CreateCategoryRequest, Category>();
         CreateMap<UpdateCategoryRequest, Category>();
 
@@ -39,14 +39,17 @@ public class MappingProfile : Profile
             .ForMember(d => d.VendorName, opt => opt.MapFrom(s => s.Vendor.FullName))
             .ForMember(d => d.CategoryNameEn, opt => opt.MapFrom(s => s.Category.NameEn))
             .ForMember(d => d.CategoryNameAr, opt => opt.MapFrom(s => s.Category.NameAr))
-            .ForMember(d => d.AverageRating, opt => opt.MapFrom(s => s.Reviews.Any() ? s.Reviews.Average(r => r.Rating) : 0))
-            .ForMember(d => d.ReviewCount, opt => opt.MapFrom(s => s.Reviews.Count));
+            .ForMember(d => d.AverageRating, opt => opt.MapFrom(s => s.Reviews != null && s.Reviews.Any() ? s.Reviews.Average(r => r.Rating) : 0))
+            .ForMember(d => d.ReviewCount, opt => opt.MapFrom(s => s.Reviews != null ? s.Reviews.Count : 0));
         CreateMap<Product, ProductListDto>()
             .ForMember(d => d.CategoryNameEn, opt => opt.MapFrom(s => s.Category.NameEn))
             .ForMember(d => d.CategoryNameAr, opt => opt.MapFrom(s => s.Category.NameAr))
-            .ForMember(d => d.PrimaryImageUrl, opt => opt.MapFrom(s => s.Images.FirstOrDefault(i => i.IsPrimary) != null ? s.Images.First(i => i.IsPrimary).ImageUrl : s.Images.FirstOrDefault()!.ImageUrl))
-            .ForMember(d => d.AverageRating, opt => opt.MapFrom(s => s.Reviews.Any() ? s.Reviews.Average(r => r.Rating) : 0))
-            .ForMember(d => d.ReviewCount, opt => opt.MapFrom(s => s.Reviews.Count));
+            .ForMember(d => d.PrimaryImageUrl, opt => opt.MapFrom(s =>
+                s.Images != null && s.Images.Any()
+                    ? (s.Images.FirstOrDefault(i => i.IsPrimary) ?? s.Images.First()).ImageUrl
+                    : null))
+            .ForMember(d => d.AverageRating, opt => opt.MapFrom(s => s.Reviews != null && s.Reviews.Any() ? s.Reviews.Average(r => r.Rating) : 0))
+            .ForMember(d => d.ReviewCount, opt => opt.MapFrom(s => s.Reviews != null ? s.Reviews.Count : 0));
         CreateMap<CreateProductRequest, Product>();
         CreateMap<UpdateProductRequest, Product>();
 
@@ -60,12 +63,15 @@ public class MappingProfile : Profile
 
         // Cart mappings
         CreateMap<Cart, CartDto>()
-            .ForMember(d => d.SubTotal, opt => opt.MapFrom(s => s.Items.Sum(i => i.Product.CurrentPrice * i.Quantity)))
-            .ForMember(d => d.TotalItems, opt => opt.MapFrom(s => s.Items.Sum(i => i.Quantity)));
+            .ForMember(d => d.SubTotal, opt => opt.MapFrom(s => s.Items != null ? s.Items.Sum(i => i.Product.CurrentPrice * i.Quantity) : 0))
+            .ForMember(d => d.TotalItems, opt => opt.MapFrom(s => s.Items != null ? s.Items.Sum(i => i.Quantity) : 0));
         CreateMap<CartItem, CartItemDto>()
             .ForMember(d => d.ProductNameEn, opt => opt.MapFrom(s => s.Product.NameEn))
             .ForMember(d => d.ProductNameAr, opt => opt.MapFrom(s => s.Product.NameAr))
-            .ForMember(d => d.ProductImageUrl, opt => opt.MapFrom(s => s.Product.Images.FirstOrDefault(i => i.IsPrimary) != null ? s.Product.Images.First(i => i.IsPrimary).ImageUrl : null))
+            .ForMember(d => d.ProductImageUrl, opt => opt.MapFrom(s =>
+                s.Product.Images != null && s.Product.Images.Any()
+                    ? (s.Product.Images.FirstOrDefault(i => i.IsPrimary) ?? s.Product.Images.First()).ImageUrl
+                    : null))
             .ForMember(d => d.UnitPrice, opt => opt.MapFrom(s => s.Product.CurrentPrice))
             .ForMember(d => d.Total, opt => opt.MapFrom(s => s.Product.CurrentPrice * s.Quantity))
             .ForMember(d => d.AvailableStock, opt => opt.MapFrom(s => s.Product.StockQuantity));
@@ -76,7 +82,7 @@ public class MappingProfile : Profile
             .ForMember(d => d.CustomerEmail, opt => opt.MapFrom(s => s.User.Email));
         CreateMap<Order, OrderListDto>()
             .ForMember(d => d.CustomerName, opt => opt.MapFrom(s => s.User.FullName))
-            .ForMember(d => d.ItemCount, opt => opt.MapFrom(s => s.Items.Count));
+            .ForMember(d => d.ItemCount, opt => opt.MapFrom(s => s.Items != null ? s.Items.Count : 0));
         CreateMap<OrderItem, OrderItemDto>()
             .ForMember(d => d.ProductName, opt => opt.MapFrom(s => s.ProductNameSnapshot))
             .ForMember(d => d.ProductImageUrl, opt => opt.MapFrom(s => s.ProductImageSnapshot))

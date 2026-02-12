@@ -98,22 +98,23 @@ public class ElasticsearchService : ISearchService
             )
         );
 
-        var products = searchResponse.Documents.Select(d => new ProductListDto(
-            Guid.Parse(d.Id),
-            d.NameEn,
-            d.NameAr,
-            d.CategoryName,
-            d.CategoryName,
-            (decimal)d.Price,
-            null,
-            (decimal)d.Price,
-            d.InStock ? 1 : 0,
-            d.InStock,
-            false,
-            d.PrimaryImageUrl,
-            0,
-            0
-        ));
+        var products = searchResponse.Documents.Select(d => new ProductListDto
+        {
+            Id = Guid.Parse(d.Id),
+            NameEn = d.NameEn,
+            NameAr = d.NameAr,
+            CategoryNameEn = d.CategoryName,
+            CategoryNameAr = d.CategoryName,
+            Price = (decimal)d.Price,
+            DiscountPrice = null,
+            CurrentPrice = (decimal)d.Price,
+            StockQuantity = d.InStock ? 1 : 0,
+            InStock = d.InStock,
+            IsFeatured = false,
+            PrimaryImageUrl = d.PrimaryImageUrl,
+            AverageRating = 0,
+            ReviewCount = 0
+        });
 
         var categoryFacets = searchResponse.Aggregations
             .Terms("categories")?.Buckets
