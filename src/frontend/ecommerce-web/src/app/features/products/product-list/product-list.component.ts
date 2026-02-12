@@ -402,22 +402,49 @@ export class ProductListComponent implements OnInit {
   loadProducts(): void {
     this.loading = true;
 
-    const params: any = {
-      page: this.currentPage,
-      pageSize: this.pageSize,
-      sortBy: this.sortBy
-    };
-
-    if (this.searchQuery) {
-      params.search = this.searchQuery;
+    // Map frontend sort options to backend parameters
+    let sortBy = 'CreatedAt';
+    let sortDescending = true;
+    switch (this.sortBy) {
+      case 'newest':
+        sortBy = 'CreatedAt';
+        sortDescending = true;
+        break;
+      case 'price_asc':
+        sortBy = 'Price';
+        sortDescending = false;
+        break;
+      case 'price_desc':
+        sortBy = 'Price';
+        sortDescending = true;
+        break;
+      case 'rating':
+        sortBy = 'AverageRating';
+        sortDescending = true;
+        break;
+      case 'popular':
+        sortBy = 'ReviewCount';
+        sortDescending = true;
+        break;
     }
 
+    const params: any = {
+      pageNumber: this.currentPage,
+      pageSize: this.pageSize,
+      sortBy,
+      sortDescending
+    };
+
     if (this.categorySlug) {
-      params.category = this.categorySlug;
+      // Find category ID from slug
+      const category = this.categories.find(c => c.slug === this.categorySlug);
+      if (category) {
+        params.categoryId = category.id;
+      }
     }
 
     if (this.selectedCategories.length > 0) {
-      params.categories = this.selectedCategories.join(',');
+      params.categoryId = this.selectedCategories[0]; // Use first selected category
     }
 
     if (this.minPrice) {
