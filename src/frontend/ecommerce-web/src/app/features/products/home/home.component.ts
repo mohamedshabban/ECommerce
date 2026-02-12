@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProductService, CategoryService } from '../../../core/services';
+import { ProductService, CategoryService, CartService } from '../../../core/services';
 import { Product, Category } from '../../../core/models';
 
 @Component({
@@ -65,17 +65,19 @@ import { Product, Category } from '../../../core/models';
             @for (product of featuredProducts; track product.id) {
               <div class="col-6 col-md-4 col-lg-3">
                 <div class="card product-card h-100">
-                  <div class="position-relative overflow-hidden">
+                  <a [routerLink]="['/products', product.id]" class="position-relative overflow-hidden d-block">
                     @if (product.discountPercentage && product.discountPercentage > 0) {
                       <span class="discount-badge">-{{ product.discountPercentage }}%</span>
                     }
                     <img
-                      [src]="product.imageUrl || 'assets/images/placeholder.svg'"
+                      [src]="product.primaryImageUrl || product.imageUrl || 'assets/images/placeholder.svg'"
                       [alt]="product.nameEn"
                       class="card-img-top product-image">
-                  </div>
+                  </a>
                   <div class="card-body d-flex flex-column">
-                    <h6 class="card-title mb-2">{{ product.nameEn }}</h6>
+                    <a [routerLink]="['/products', product.id]" class="text-decoration-none">
+                      <h6 class="card-title mb-2">{{ product.nameEn }}</h6>
+                    </a>
                     <div class="rating mb-2">
                       @for (star of [1,2,3,4,5]; track star) {
                         <i [class]="star <= (product.averageRating || 0) ? 'fas fa-star' : 'far fa-star'"></i>
@@ -94,9 +96,10 @@ import { Product, Category } from '../../../core/models';
                     </div>
                   </div>
                   <div class="card-footer bg-transparent border-0 pt-0">
-                    <a [routerLink]="['/products', product.id]" class="btn btn-primary btn-sm w-100">
-                      {{ 'product.viewDetails' | translate }}
-                    </a>
+                    <button (click)="addToCart(product)" class="btn btn-primary btn-sm w-100">
+                      <i class="fas fa-shopping-cart me-1"></i>
+                      {{ 'product.addToCart' | translate }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -118,17 +121,19 @@ import { Product, Category } from '../../../core/models';
           @for (product of newArrivals; track product.id) {
             <div class="col-6 col-md-4 col-lg-3">
               <div class="card product-card h-100">
-                <div class="position-relative overflow-hidden">
+                <a [routerLink]="['/products', product.id]" class="position-relative overflow-hidden d-block">
                   <span class="badge bg-success position-absolute top-0 start-0 m-2">
                     {{ 'product.new' | translate }}
                   </span>
                   <img
-                    [src]="product.imageUrl || 'assets/images/placeholder.svg'"
+                    [src]="product.primaryImageUrl || product.imageUrl || 'assets/images/placeholder.svg'"
                     [alt]="product.nameEn"
                     class="card-img-top product-image">
-                </div>
+                </a>
                 <div class="card-body d-flex flex-column">
-                  <h6 class="card-title mb-2">{{ product.nameEn }}</h6>
+                  <a [routerLink]="['/products', product.id]" class="text-decoration-none">
+                    <h6 class="card-title mb-2">{{ product.nameEn }}</h6>
+                  </a>
                   <div class="rating mb-2">
                     @for (star of [1,2,3,4,5]; track star) {
                       <i [class]="star <= (product.averageRating || 0) ? 'fas fa-star' : 'far fa-star'"></i>
@@ -140,9 +145,10 @@ import { Product, Category } from '../../../core/models';
                   </div>
                 </div>
                 <div class="card-footer bg-transparent border-0 pt-0">
-                  <a [routerLink]="['/products', product.id]" class="btn btn-primary btn-sm w-100">
-                    {{ 'product.viewDetails' | translate }}
-                  </a>
+                  <button (click)="addToCart(product)" class="btn btn-primary btn-sm w-100">
+                    <i class="fas fa-shopping-cart me-1"></i>
+                    {{ 'product.addToCart' | translate }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -214,11 +220,29 @@ import { Product, Category } from '../../../core/models';
       border-radius: 8px;
       border: 1px solid var(--border-color);
     }
+
+    .product-card .product-image {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.05);
+    }
+
+    .card-title {
+      color: var(--text-primary);
+    }
+
+    .card-title:hover {
+      color: var(--primary-color);
+    }
   `]
 })
 export class HomeComponent implements OnInit {
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);
+  private cartService = inject(CartService);
 
   categories: Category[] = [];
   featuredProducts: Product[] = [];
@@ -227,6 +251,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+  }
+
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product.id, 1).subscribe({
+      next: () => {
+        // TODO: Show success notification
+        console.log('Added to cart:', product.nameEn);
+      },
+      error: (err) => console.error('Error adding to cart:', err)
+    });
   }
 
   private loadData(): void {
