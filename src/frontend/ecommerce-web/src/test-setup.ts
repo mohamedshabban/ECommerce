@@ -1,1 +1,1 @@
-import '@analogjs/vitest-angular/setup-zone';
+// Angular test environment is auto-configured by @angular/build:unit-test

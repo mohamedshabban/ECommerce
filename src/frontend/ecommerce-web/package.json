@@ -6,8 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "ng test --no-watch",
+    "test:watch": "ng test"
   },
   "prettier": {
     "printWidth": 100,
@@ -41,12 +41,11 @@
     "zone.js": "^0.16.0"
   },
   "devDependencies": {
-    "@analogjs/vitest-angular": "^1.14.0",
     "@angular/build": "^21.1.2",
     "@angular/cli": "^21.1.2",
     "@angular/compiler-cli": "^21.1.0",
     "jsdom": "^26.0.0",
     "typescript": "~5.9.2",
-    "vitest": "^3.0.0"
+    "vitest": "^4.0.8"
   }
 }
