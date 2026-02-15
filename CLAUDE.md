@@ -111,3 +111,6 @@ Main controllers in `ECommerce.API/Controllers/`:
 **Production** (`docker-compose.yml`): sqlserver, elasticsearch, api (port 5000), frontend (port 80)
 
 **Development** (`docker-compose.dev.yml`): sqlserver-dev, elasticsearch-dev, kibana-dev (port 5601)
+
+## Rules
+- Open changes in Visual Stuio Code
