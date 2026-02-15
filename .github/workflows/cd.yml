@@ -30,8 +30,8 @@ jobs:
       - name: Build and push API image
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: src/backend/ECommerce.API/Dockerfile
+          context: src/backend
+          file: src/backend/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/ecommerce-api:latest
