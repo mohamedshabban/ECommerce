@@ -1,9 +1,11 @@
+using ECommerce.API.Filters;
 using ECommerce.API.Middleware;
 using ECommerce.API.Services;
 using ECommerce.Application.Interfaces;
 using ECommerce.Application.Mappings;
 using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Extensions;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -24,9 +26,12 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 // Add services to the container
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpClient();
+
+// Add FluentValidation validators
+builder.Services.AddValidatorsFromAssemblyContaining<MappingProfile>();
 
 // Add Infrastructure services
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -156,15 +161,26 @@ if (app.Environment.IsDevelopment())
 
     try
     {
+        Log.Information("Applying database migrations...");
         await context.Database.MigrateAsync();
-        await DatabaseSeeder.SeedAsync(context);
+        Log.Information("Database migrations applied successfully.");
     }
     catch (Exception ex)
     {
-        Log.Error(ex, "An error occurred while migrating or seeding the database");
+        Log.Fatal(ex, "Failed to apply database migrations. Application cannot start.");
         throw;
     }
-}
 
+    try
+    {
+        Log.Information("Seeding database...");
+        await DatabaseSeeder.SeedAsync(context);
+        Log.Information("Database seeding completed.");
+    }
+    catch (Exception ex)
+    {
+        Log.Error(ex, "An error occurred while seeding the database. Application will continue.");
+    }
+}
 
 app.Run();

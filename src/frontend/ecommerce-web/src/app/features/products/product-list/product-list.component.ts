@@ -5,11 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService, CategoryService, CartService } from '../../../core/services';
 import { Product, Category, PaginatedResponse } from '../../../core/models';
+import { ProductCardComponent } from '../../../shared/components/product-card/product-card.component';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, TranslateModule],
+  imports: [CommonModule, RouterModule, FormsModule, TranslateModule, ProductCardComponent, PaginationComponent, LoadingSpinnerComponent],
   template: `
     <div class="container py-4">
       <div class="row">
@@ -151,11 +154,7 @@ import { Product, Category, PaginatedResponse } from '../../../core/models';
 
           <!-- Loading -->
           @if (loading) {
-            <div class="loading-spinner">
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
+            <app-loading-spinner />
           } @else if (products.length === 0) {
             <div class="text-center py-5">
               <i class="fas fa-box-open fa-4x text-muted mb-3"></i>
@@ -171,51 +170,13 @@ import { Product, Category, PaginatedResponse } from '../../../core/models';
               <div class="row g-4">
                 @for (product of products; track product.id) {
                   <div class="col-6 col-md-4">
-                    <div class="card product-card h-100">
-                      <div class="position-relative overflow-hidden">
-                        @if (product.discountPercentage && product.discountPercentage > 0) {
-                          <span class="discount-badge">-{{ product.discountPercentage }}%</span>
-                        }
-                        <img
-                          [src]="product.imageUrl || 'assets/images/placeholder.svg'"
-                          [alt]="product.nameEn"
-                          class="card-img-top product-image"
-                          [routerLink]="['/products', product.id]"
-                          style="cursor: pointer;">
-                        <div class="product-actions">
-                          <button class="btn btn-sm btn-light" (click)="addToCart(product)" title="Add to Cart">
-                            <i class="fas fa-shopping-cart"></i>
-                          </button>
-                          <button class="btn btn-sm btn-light" (click)="addToWishlist(product)" title="Add to Wishlist">
-                            <i class="far fa-heart"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="card-body d-flex flex-column">
-                        <small class="text-muted">{{ product.categoryName }}</small>
-                        <h6 class="card-title mb-2">
-                          <a [routerLink]="['/products', product.id]" class="text-decoration-none text-dark">
-                            {{ product.nameEn }}
-                          </a>
-                        </h6>
-                        <div class="rating mb-2">
-                          @for (star of [1,2,3,4,5]; track star) {
-                            <i [class]="star <= (product.averageRating || 0) ? 'fas fa-star' : 'far fa-star'"></i>
-                          }
-                          <small class="text-muted ms-1">({{ product.reviewCount || 0 }})</small>
-                        </div>
-                        <div class="mt-auto">
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="current-price">{{ product.price | currency }}</span>
-                            @if (product.originalPrice && product.originalPrice > product.price) {
-                              <span class="text-muted text-decoration-line-through small">
-                                {{ product.originalPrice | currency }}
-                              </span>
-                            }
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <app-product-card
+                      [product]="product"
+                      [showHoverActions]="true"
+                      [showCategory]="true"
+                      [badgeType]="'discount'"
+                      (addToCart)="addToCart($event)"
+                      (addToWishlist)="addToWishlist($event)" />
                   </div>
                 }
               </div>
@@ -278,27 +239,10 @@ import { Product, Category, PaginatedResponse } from '../../../core/models';
             }
 
             <!-- Pagination -->
-            @if (totalPages > 1) {
-              <nav class="mt-4">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item" [class.disabled]="currentPage === 1">
-                    <button class="page-link" (click)="goToPage(currentPage - 1)">
-                      <i class="fas fa-chevron-left"></i>
-                    </button>
-                  </li>
-                  @for (page of getPageNumbers(); track page) {
-                    <li class="page-item" [class.active]="page === currentPage">
-                      <button class="page-link" (click)="goToPage(page)">{{ page }}</button>
-                    </li>
-                  }
-                  <li class="page-item" [class.disabled]="currentPage === totalPages">
-                    <button class="page-link" (click)="goToPage(currentPage + 1)">
-                      <i class="fas fa-chevron-right"></i>
-                    </button>
-                  </li>
-                </ul>
-              </nav>
-            }
+            <app-pagination
+              [currentPage]="currentPage"
+              [totalPages]="totalPages"
+              (pageChange)="goToPage($event)" />
           }
         </div>
       </div>
@@ -524,22 +468,6 @@ export class ProductListComponent implements OnInit {
       this.loadProducts();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }
-
-  getPageNumbers(): number[] {
-    const pages: number[] = [];
-    const maxPages = 5;
-    let start = Math.max(1, this.currentPage - Math.floor(maxPages / 2));
-    let end = Math.min(this.totalPages, start + maxPages - 1);
-
-    if (end - start + 1 < maxPages) {
-      start = Math.max(1, end - maxPages + 1);
-    }
-
-    for (let i = start; i <= end; i++) {
-      pages.push(i);
-    }
-    return pages;
   }
 
   addToCart(product: Product): void {

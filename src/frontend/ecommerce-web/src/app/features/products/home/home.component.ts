@@ -4,11 +4,13 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService, CategoryService, CartService } from '../../../core/services';
 import { Product, Category } from '../../../core/models';
+import { ProductCardComponent } from '../../../shared/components/product-card/product-card.component';
+import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, TranslateModule],
+  imports: [CommonModule, RouterModule, TranslateModule, ProductCardComponent, LoadingSpinnerComponent],
   template: `
     <div class="container py-4">
       <!-- Hero Section -->
@@ -55,53 +57,15 @@ import { Product, Category } from '../../../core/models';
         </div>
 
         @if (loading) {
-          <div class="loading-spinner">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
+          <app-loading-spinner />
         } @else {
           <div class="row g-4">
             @for (product of featuredProducts; track product.id) {
               <div class="col-6 col-md-4 col-lg-3">
-                <div class="card product-card h-100">
-                  <a [routerLink]="['/products', product.id]" class="position-relative overflow-hidden d-block">
-                    @if (product.discountPercentage && product.discountPercentage > 0) {
-                      <span class="discount-badge">-{{ product.discountPercentage }}%</span>
-                    }
-                    <img
-                      [src]="product.primaryImageUrl || product.imageUrl || 'assets/images/placeholder.svg'"
-                      [alt]="product.nameEn"
-                      class="card-img-top product-image">
-                  </a>
-                  <div class="card-body d-flex flex-column">
-                    <a [routerLink]="['/products', product.id]" class="text-decoration-none">
-                      <h6 class="card-title mb-2">{{ product.nameEn }}</h6>
-                    </a>
-                    <div class="rating mb-2">
-                      @for (star of [1,2,3,4,5]; track star) {
-                        <i [class]="star <= (product.averageRating || 0) ? 'fas fa-star' : 'far fa-star'"></i>
-                      }
-                      <small class="text-muted ms-1">({{ product.reviewCount || 0 }})</small>
-                    </div>
-                    <div class="mt-auto">
-                      <div class="d-flex align-items-center gap-2">
-                        <span class="current-price">{{ product.price | currency }}</span>
-                        @if (product.originalPrice && product.originalPrice > product.price) {
-                          <span class="text-muted text-decoration-line-through small">
-                            {{ product.originalPrice | currency }}
-                          </span>
-                        }
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-footer bg-transparent border-0 pt-0">
-                    <button (click)="addToCart(product)" class="btn btn-primary btn-sm w-100">
-                      <i class="fas fa-shopping-cart me-1"></i>
-                      {{ 'product.addToCart' | translate }}
-                    </button>
-                  </div>
-                </div>
+                <app-product-card
+                  [product]="product"
+                  [badgeType]="'discount'"
+                  (addToCart)="addToCart($event)" />
               </div>
             }
           </div>
@@ -120,37 +84,10 @@ import { Product, Category } from '../../../core/models';
         <div class="row g-4">
           @for (product of newArrivals; track product.id) {
             <div class="col-6 col-md-4 col-lg-3">
-              <div class="card product-card h-100">
-                <a [routerLink]="['/products', product.id]" class="position-relative overflow-hidden d-block">
-                  <span class="badge bg-success position-absolute top-0 start-0 m-2">
-                    {{ 'product.new' | translate }}
-                  </span>
-                  <img
-                    [src]="product.primaryImageUrl || product.imageUrl || 'assets/images/placeholder.svg'"
-                    [alt]="product.nameEn"
-                    class="card-img-top product-image">
-                </a>
-                <div class="card-body d-flex flex-column">
-                  <a [routerLink]="['/products', product.id]" class="text-decoration-none">
-                    <h6 class="card-title mb-2">{{ product.nameEn }}</h6>
-                  </a>
-                  <div class="rating mb-2">
-                    @for (star of [1,2,3,4,5]; track star) {
-                      <i [class]="star <= (product.averageRating || 0) ? 'fas fa-star' : 'far fa-star'"></i>
-                    }
-                    <small class="text-muted ms-1">({{ product.reviewCount || 0 }})</small>
-                  </div>
-                  <div class="mt-auto">
-                    <span class="current-price">{{ product.price | currency }}</span>
-                  </div>
-                </div>
-                <div class="card-footer bg-transparent border-0 pt-0">
-                  <button (click)="addToCart(product)" class="btn btn-primary btn-sm w-100">
-                    <i class="fas fa-shopping-cart me-1"></i>
-                    {{ 'product.addToCart' | translate }}
-                  </button>
-                </div>
-              </div>
+              <app-product-card
+                [product]="product"
+                [badgeType]="'new'"
+                (addToCart)="addToCart($event)" />
             </div>
           }
         </div>
